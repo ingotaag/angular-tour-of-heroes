@@ -1,0 +1,9 @@
+<div *ngIf="hero">
+    <h2>{{hero.name|uppercase}} (Level {{hero.level}} {{hero.class}})</h2>
+    <div><span>ID:</span>{{hero.id}}</div>
+    <div><span>Name:</span>{{hero.name}}
+    <input id="name" [(ngModel)]="hero.name" placeholder="name">
+    <input id="class" [(ngModel)]="hero.class" placeholder="class">
+    <input id="level" [(ngModel)]="hero.level" placeholder="level">
+    </div>
+</div>
