@@ -1,7 +1,7 @@
-import { Component,OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { Hero } from '../hero';
-import { HeroService} from '../hero.service';
+import { HeroService } from '../hero.service';
 import { MessageService } from '../message.service';
 
 @Component({
@@ -11,40 +11,41 @@ import { MessageService } from '../message.service';
 })
 
 export class HeroesComponent {
-  
-  constructor(private heroService: HeroService,private messageService:MessageService) {}
-  
+  constructor(
+    private heroService: HeroService,
+    private messageService: MessageService
+  ) {}
+
   //Properties
-  heroes:Hero[]=[];
+  heroes: Hero[] = [];
   selectedHero?: Hero;
-  
+
   //Methods
   onSelect(hero: Hero): void {
     this.selectedHero = hero;
-    this.messageService.add('Heroes-Componment: Selected heor id=$(hero.id)');
+    this.messageService.add('Heroes-Componment: Selected hero id=$(hero.id)');
   }
 
-  getHeroes() :void{
-    this.heroService.getHeroes()
-    .subscribe(heroes => this.heroes = heroes);
-
+  getHeroes(): void {
+    this.heroService.getHeroes().subscribe((heroes) => (this.heroes = heroes));
   }
 
-  add (name:string ):void {
-    name=name.trim(); 
-    if(!name) {return;}
-    this.heroService.addHero({name} as Hero)
-      .subscribe(
-          hero=>{this.heroes.push(hero) }
-        );
+  add(name: string): void {
+    name = name.trim();
+    if (!name) {
+      return;
+    }
+    this.heroService.addHero({ name } as Hero).subscribe((hero) => {
+      this.heroes.push(hero);
+    });
   }
 
   ngOnInit() {
     this.getHeroes();
   }
 
-  delete(hero:Hero):void {
-    this.heroes=this.heroes.filter(h=>h!==hero);
+  delete(hero: Hero): void {
+    this.heroes = this.heroes.filter((h) => h !== hero);
     this.heroService.deleteHero(hero.id).subscribe();
   }
 }
